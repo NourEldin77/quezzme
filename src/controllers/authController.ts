@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import prisma from "../../db";
+import prisma from "../db";
 
 const generateJWT = (userId: string) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET!, {

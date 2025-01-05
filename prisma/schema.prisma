@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  quizzes   Quiz[]
+  resetToken String?
+  resetTokenExpiry DateTime?
+}
+
+model Quiz {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  questions   Question[]
+  // fileUrl for pdf file (later)
+  fileUrl     String?  
+}
+
+enum QuestionType {
+  MCQ
+}
+
+model Question {
+  id           String    @id @default(uuid())
+  text         String
+  quizId       String
+  quiz         Quiz     @relation(fields: [quizId], references: [id])
+  answers      Answer[]
+  questionType QuestionType @default(MCQ)
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  text       String
+  isCorrect  Boolean
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+}

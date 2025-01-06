@@ -1,5 +1,8 @@
 import { Router } from "express";
 import { protect } from "../middlewares/authMiddleware";
+import * as quizController from "../controllers/quizController";
+import * as questionController from "../controllers/questionController";
+import * as answerController from "../controllers/answerController";
 
 const router = Router();
 
@@ -7,26 +10,47 @@ router.use(protect);
 
 /* quizz routes */
 
-router.post("/", () => {}); // Create a quiz
-router.get("/", () => {}); // Get all user's quizzes
-router.get("/:id", () => {}); // Get a quiz by id
-router.put("/:id", () => {}); // Update a quiz by id
-router.delete("/:id", () => {}); // Delete a quiz by id
+router.post("/", quizController.createQuiz); // Create a quiz
+router.get("/", quizController.getAllQuizzes); // Get all user's quizzes
+router.get("/:id", quizController.getQuizById); // Get a quiz by id
+router.put("/:id", quizController.updateQuiz); // Update a quiz by id
+router.delete("/:id", quizController.deleteQuiz); // Delete a quiz by id
 
 /* Question routes */
 
-router.post("/:id/questions", () => {}); // Create a question and add it to a quiz
-router.get("/:id/questions", () => {}); // get all questions from a quiz
-router.get("/:quizId/questions/:questionId", () => {}); // get a question by id
-router.put("/:quizId/questions/:questionId", () => {}); // update a question by id
-router.delete("/:quizId/questions/:questionId", () => {}); // delete a question by id
+router.post("/:id/questions", questionController.addQuestionToQuiz); // Create a question and add it to a quiz
+router.get("/:id/questions", questionController.getAllQuestionsForQuiz); // get all questions from a quiz
+router.get(
+  "/:quizId/questions/:questionId",
+  questionController.getQuestionById
+); // get a question by id
+router.put("/:quizId/questions/:questionId", questionController.updateQuestion); // update a question by id
+router.delete(
+  "/:quizId/questions/:questionId",
+  questionController.deleteQuestion
+); // delete a question by id
 
 /* Answer routes */
 
-router.post("/:quizId/questions/:questionId/answers", () => {}); // Create an answer and add it to a question
-router.get("/:quizId/questions/:questionId/answers", () => {}); // get all answers from a question
-router.get("/:quizId/questions/:questionId/answers/:answerId", () => {}); // get an answer by id
-router.put("/:quizId/questions/:questionId/answers/:answerId", () => {}); // update an answer by id
-router.delete("/:quizId/questions/:questionId/answers/:answerId", () => {}); // delete an answer by id
+router.post(
+  "/:quizId/questions/:questionId/answers",
+  answerController.addAnswerToQuestion
+); // Create an answer and add it to a question
+router.get(
+  "/:quizId/questions/:questionId/answers",
+  answerController.getAllAnswersForQuestion
+); // get all answers from a question
+router.get(
+  "/:quizId/questions/:questionId/answers/:answerId",
+  answerController.getAnswerById
+); // get an answer by id
+router.put(
+  "/:quizId/questions/:questionId/answers/:answerId",
+  answerController.updateAnswer
+); // update an answer by id
+router.delete(
+  "/:quizId/questions/:questionId/answers/:answerId",
+  answerController.deleteAnswer
+); // delete an answer by id
 
 export default router;

@@ -6,8 +6,6 @@ import * as answerController from "../controllers/answerController";
 
 const router = Router();
 
-router.use(protect);
-
 /* quizz routes */
 
 router.post("/", quizController.createQuiz); // Create a quiz

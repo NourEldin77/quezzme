@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import { protect } from "./middlewares/authMiddleware";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
+import quizRoutes from "./routes/quizRoutes";
 
 const app = express();
 
@@ -17,7 +18,8 @@ app.get("/", (req: Request, res: Response) => {
   res.json({ message: "hello" });
 });
 
-app.use("/users", userRoutes);
+app.use("/quizzes", protect, quizRoutes);
+app.use("/users", protect, userRoutes);
 app.use("/auth", authRoutes);
 
 export default app;

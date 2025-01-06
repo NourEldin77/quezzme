@@ -66,3 +66,18 @@ export const updateAnswer = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to update answer" });
   }
 };
+export const deleteAnswer = async (req: Request, res: Response) => {
+  try {
+    const { answerId } = req.params;
+    const deletedAnswer = await answerModel.deleteAnswer(answerId);
+
+    if (!deletedAnswer) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    res.json({ message: "Answer deleted" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to delete answer" });
+  }
+};

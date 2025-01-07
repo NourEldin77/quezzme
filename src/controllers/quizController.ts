@@ -65,6 +65,7 @@ export const deleteQuiz = async (req: Request, res: Response) => {
     if (!deleteQuiz) {
       return res.status(404).json({ message: "Quiz not found" });
     }
+    res.json({ message: "Quiz deleted" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to delete quiz" });

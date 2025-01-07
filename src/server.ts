@@ -6,6 +6,7 @@ import { protect } from "./middlewares/authMiddleware";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import quizRoutes from "./routes/quizRoutes";
+import { errorHandler } from "./utils/errorHandler";
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/quizzes", protect, quizRoutes);
 app.use("/users", protect, userRoutes);
 app.use("/auth", authRoutes);
+app.use(errorHandler);
 
 export default app;

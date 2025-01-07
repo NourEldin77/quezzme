@@ -16,8 +16,8 @@ router.delete("/:id", quizController.deleteQuiz); // Delete a quiz by id
 
 /* Question routes */
 
-router.post("/:id/questions", questionController.addQuestionToQuiz); // Create a question and add it to a quiz
-router.get("/:id/questions", questionController.getAllQuestionsForQuiz); // get all questions from a quiz
+router.post("/:quizId/questions", questionController.addQuestionToQuiz); // Create a question and add it to a quiz
+router.get("/:quizId/questions", questionController.getAllQuestionsForQuiz); // get all questions from a quiz
 router.get(
   "/:quizId/questions/:questionId",
   questionController.getQuestionById

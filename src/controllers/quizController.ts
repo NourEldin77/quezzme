@@ -60,7 +60,7 @@ export const updateQuiz = async (req: Request, res: Response) => {
 export const deleteQuiz = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const deletedQuiz = await quizModel.deleteQuiz(id);
+    const deleteQuiz = await quizModel.deleteQuiz(id);
 
     if (!deleteQuiz) {
       return res.status(404).json({ message: "Quiz not found" });

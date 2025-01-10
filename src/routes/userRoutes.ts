@@ -1,12 +1,17 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { protect } from "../middlewares/authMiddleware";
-import exp from "constants";
 
 const router = Router();
 
 router.get("/me", (req: Request, res: Response) => {
-  res.json({ username: req.user });
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    res.json({ username: req.user.username });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
 });
 
 export default router;

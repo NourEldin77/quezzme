@@ -19,6 +19,7 @@ app.get("/", (req: Request, res: Response) => {
   res.json({ message: "hello" });
 });
 
+app.use("/users", protect, userRoutes);
 app.use("/quizzes", protect, quizRoutes);
 app.use("/users", protect, userRoutes);
 app.use("/auth", authRoutes);

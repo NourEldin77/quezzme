@@ -5,8 +5,8 @@ import exp from "constants";
 
 const router = Router();
 
-router.use(protect);
-
-router.get("/me", (req: Request, res: Response) => {});
+router.get("/me", (req: Request, res: Response) => {
+  res.json({ username: req.user });
+});
 
 export default router;

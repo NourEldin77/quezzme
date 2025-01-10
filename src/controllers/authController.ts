@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import prisma from "../db";
 
-const generateJWT = (userId: string) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET!, {
+const generateJWT = (userId: string, username: string) => {
+  return jwt.sign({ userId, username }, process.env.JWT_SECRET!, {
     expiresIn: "1h",
   });
 };
@@ -22,7 +22,7 @@ export const register = async (req: Request, res: Response) => {
       data: { username, email, password: hashedPassword },
     });
 
-    const token = generateJWT(user.id);
+    const token = generateJWT(user.id, user.username);
     res.status(201).json({ token });
   } catch (error) {
     console.error(error);
@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const token = generateJWT(user.id);
+    const token = generateJWT(user.id, user.username);
     res.json({ token });
   } catch (error) {
     console.error(error);

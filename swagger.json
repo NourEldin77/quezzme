@@ -187,7 +187,64 @@
                               }
                          }
                     }
-
+               }
+          },
+          "/me":{
+               "summary": "get username",
+               "description": "get username of the user",
+               "get":{
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "responses": {
+                         "200":{
+                              "description": "successful operation getting username",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "username": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "Unauthorized",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "falid to get username due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
                }
           }
      }

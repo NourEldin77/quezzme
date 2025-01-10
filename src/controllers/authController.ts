@@ -16,10 +16,7 @@ export const register = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Passwords do not match" });
   }
   try {
-    const hashedPassword = await bcrypt.hash(
-      password,
-      process.env.SALT_ROUNDS!
-    );
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.create({
       data: { username, email, password: hashedPassword },

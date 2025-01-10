@@ -16,6 +16,18 @@
           }
      ]
      ,
+     "components": {
+          "securitySchemes": 
+          {
+               "bearerAuth":
+                    {
+                         "type": "http",
+                         "scheme": "bearer",
+                         "bearerFormat": "JWT"
+                    }
+          }
+     }
+     ,
      "paths": {
           "/":{
                "get":{
@@ -246,6 +258,379 @@
                          }
                     }
                }
+          },
+          "/quizzes":{
+               "post":{
+                    "summary": "create quiz",
+                    "description": "create quiz and append to user quizzes",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "requestBody":{
+                         "required": true,
+                         "content": {
+                              "application/json":{
+                                   "schema":{
+                                        "type": "object",
+                                        "properties": {
+                                             "title": {
+                                                  "type": "string"
+                                             },
+                                             "description": {
+                                                  "type": "string"
+                                             }
+                                        },
+                                        "required": ["title"]
+                                   }
+                              }
+                         }
+                    },
+                    "responses": {
+                         "201":{
+                              "description": "created quiz successfully",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "quiz": {
+                                                       "type": "object",
+                                                       "properties": {
+                                                            "id": {
+                                                                 "type": "number"
+                                                            },
+                                                            "title": {
+                                                                 "type": "string"
+                                                            },
+                                                            "description": {
+                                                                 "type": "string"
+                                                            },
+                                                            "userId": {
+                                                                 "type": "string"
+                                                            },
+                                                            "fileUrl":{
+                                                                 "type": "string",
+                                                                 "nullable": true
+                                                            }
+                                                       }
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to create quiz",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "falid to create quiz due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               },
+               "get":{
+                    "summary": "get all quizzes",
+                    "description": "get array of  all quizzes that users have created",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ]
+                    ,
+                    "responses": {
+                         "200":{
+                              "description": "successful operation getting all quizzes",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "array",
+                                             "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                       "id": {
+                                                            "type": "string"
+                                                       },
+                                                       "title": {
+                                                            "type": "string"
+                                                       },
+                                                       "description": {
+                                                            "type": "string"
+                                                       },
+                                                       "userId": {
+                                                            "type": "string"
+                                                       },
+                                                       "fileUrl":{
+                                                            "type": "string",
+                                                            "nullable": true
+                                                       }
+                                                  }
+                                             }
+                                        },
+                                        "example":[
+                                             {
+                                                  "id": "b31eeb21-eca0-4664-8611-423350cf9948",
+                                                  "title": "math",
+                                                  "description": "basic algebra",
+                                                  "userId": "285ce858-ed9a-477f-8523-465d8c19ab98",
+                                                  "fileUrl": null
+                                             },
+                                             {
+                                                  "id": "63a73c15-5f04-4257-bef1-693659a727e5",
+                                                  "title": "anatomy",
+                                                  "description": "body parts",
+                                                  "userId": "285ce858-ed9a-477f-8523-465d8c19ab98",
+                                                  "fileUrl": null
+                                             }
+                                        ]
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "Unauthorized",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "falid to get all quizzes due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+                    
+               }
+          },
+
+          "/quizzes/{id}":{
+               "get":{
+                    "summary": "get quiz by quiz id",
+                    "description": "get quiz by quiz id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "id",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "responses": {
+                         "200":{
+                              "description": "successful operation getting quiz by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "id": {
+                                                       "type": "string"
+                                                  },
+                                                  "title": {
+                                                       "type": "string"
+                                                  },
+                                                  "description": {
+                                                       "type": "string"
+                                                  },
+                                                  "userId": {
+                                                       "type": "string"
+                                                  },
+                                                  "fileUrl":{
+                                                       "type": "string",
+                                                       "nullable": true
+                                                  }
+                                             }
+                                        },
+                                        "example":{
+                                             "id": "b31eeb21-eca0-4664-8611-423350cf9948",
+                                             "title": "math",
+                                             "description": "basic algebra",
+                                             "userId": "285ce858-ed9a-477f-8523-465d8c19ab98",
+                                             "fileUrl": null
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "Unauthorized",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "404":{
+                              "description": "quiz not found",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "falid to get quiz by id due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               },
+               "delete":{
+                    "summary": "delete quiz by quiz id",
+                    "description": "delete quiz by quiz id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "id",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "responses": {
+                         "200":{
+                              "description": "successful operation deleting quiz by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "message": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to delete quiz by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "404":{
+                              "description": "quiz not found",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "failed to delete quiz by id due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
           }
+
      }
 }

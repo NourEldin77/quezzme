@@ -1,0 +1,194 @@
+{
+     "openapi": "3.0.0",
+     "info": {
+          "title": "quezzme API",
+          "description": "API for making interactive quizzs",
+          "version": "1.0.0"
+     },
+     "servers": [
+          {
+               "url": "",
+               "description": "heroku server"
+          }
+          ,{
+               "url": "http://localhost:5525",
+               "description": "local server"
+          }
+     ]
+     ,
+     "paths": {
+          "/":{
+               "get":{
+                    "summary": "say hello",
+                    "description": "send json response with hello message",
+                    "responses": {
+                         "200": {
+                              "description": "successful operation",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "message": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+          "/auth/register":{
+               "post":{
+                    "summary": "create a new user",
+                    "description": "create a new user and setting username, email and password and in database",
+                    "requestBody": {
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                             "username": {
+                                                  "type": "string"
+                                             },
+                                             "email": {
+                                                  "type": "string"
+                                             },
+                                             "password": {
+                                                  "type": "string"
+                                             },
+                                             "passwordConfirmation": {
+                                                  "type": "string"
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    },
+                    "responses": {
+                         "201":{
+                              "description": "user created successfully",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "token": {
+                                                       "type": "string",
+                                                       "description": "Bearer Tokento be used in Authorization header"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "400":{
+                              "description": "Passwords do not match (bad request)",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "falid to create user due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+
+               }
+          },
+          "/auth/login":{
+               "post":{
+                    "summary": "login user",
+                    "description": "login user and return token to be used in Authorization header",
+                    "requestBody": {
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                             "email": {
+                                                  "type": "string"
+                                             },
+                                             "password": {
+                                                  "type": "string"
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    },
+                    "responses": {
+                         "200":{
+                              "description": "user logged in successfully",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "token": {
+                                                       "type": "string",
+                                                       "description": "Bearer Token to be used in Authorization header"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "Invalid credentials username or password is worng",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "falid to login user due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+
+               }
+          }
+     }
+}

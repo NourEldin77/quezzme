@@ -1,3 +1,4 @@
+import { error } from "console";
 import * as quizModel from "../models/quiz";
 import { Request, Response } from "express";
 
@@ -63,7 +64,7 @@ export const deleteQuiz = async (req: Request, res: Response) => {
     const deleteQuiz = await quizModel.deleteQuiz(id);
 
     if (!deleteQuiz) {
-      return res.status(404).json({ message: "Quiz not found" });
+      return res.status(404).json({ error: "Quiz not found" });
     }
     res.json({ message: "Quiz deleted" });
   } catch (error) {

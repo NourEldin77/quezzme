@@ -1,3 +1,4 @@
+import { error } from "console";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
@@ -18,13 +19,13 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   const bearer = req.headers.authorization;
 
   if (!bearer) {
-    return res.status(401).json({ message: "Not authorized" });
+    return res.status(401).json({ error: "Not authorized" });
   }
 
   const [, token] = bearer.split(" ");
 
   if (!token) {
-    return res.status(403).json({ message: "Not a valid token" });
+    return res.status(403).json({ error: "Not a valid token" });
   }
 
   try {
@@ -33,6 +34,6 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     console.error(error);
-    return res.status(401).json({ message: "Not a valid token" });
+    return res.status(401).json({ error: "Not a valid token" });
   }
 };

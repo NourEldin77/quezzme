@@ -1,6 +1,7 @@
 import * as questionModel from "../models/question";
 import { Request, Response } from "express";
 import { QuestionType } from "@prisma/client";
+import { error } from "console";
 
 export const getAllQuestionsForQuiz = async (req: Request, res: Response) => {
   try {
@@ -25,7 +26,7 @@ export const getQuestionById = async (req: Request, res: Response) => {
     res.json(question);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to get question" });
+    res.status(500).json({ error: "Failed to get question" });
   }
 };
 
@@ -35,7 +36,7 @@ export const addQuestionToQuiz = async (req: Request, res: Response) => {
     const { text, questionType } = req.body;
 
     if (!Object.values(QuestionType).includes(questionType)) {
-      return res.status(400).json({ message: "Invalid question type" });
+      return res.status(400).json({ error: "Invalid question type" });
     }
 
     const newQuestion = await questionModel.addQuestionToQuiz(quizId, {
@@ -45,7 +46,7 @@ export const addQuestionToQuiz = async (req: Request, res: Response) => {
     res.status(201).json(newQuestion);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to add question to quiz" });
+    res.status(500).json({ error: "Failed to add question to quiz" });
   }
 };
 
@@ -55,7 +56,7 @@ export const updateQuestion = async (req: Request, res: Response) => {
     const { text, questionType } = req.body;
 
     if (questionType && !Object.values(QuestionType).includes(questionType)) {
-      return res.status(400).json({ message: "Invalid question type" });
+      return res.status(400).json({ error: "Invalid question type" });
     }
 
     const updatedQuestion = await questionModel.updateQuestion(questionId, {
@@ -63,12 +64,12 @@ export const updateQuestion = async (req: Request, res: Response) => {
       questionType,
     });
     if (!updatedQuestion) {
-      return res.status(404).json({ message: "Question not found" });
+      return res.status(404).json({ error: "Question not found" });
     }
     res.json(updatedQuestion);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to update question" });
+    res.status(500).json({ error: "Failed to update question" });
   }
 };
 
@@ -78,12 +79,12 @@ export const deleteQuestion = async (req: Request, res: Response) => {
     const deletedQuestion = await questionModel.deleteQuestion(questionId);
 
     if (!deletedQuestion) {
-      return res.status(404).json({ message: "Question not found" });
+      return res.status(404).json({ error: "Question not found" });
     }
 
     res.json({ message: "Question deleted successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to delete question" });
+    res.status(500).json({ error: "Failed to delete question" });
   }
 };

@@ -1,3 +1,4 @@
+import { error } from "console";
 import * as answerModel from "../models/answer";
 import { Request, Response } from "express";
 
@@ -26,7 +27,7 @@ export const getAnswerById = async (req: Request, res: Response) => {
     res.json(answer);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to get answer" });
+    res.status(500).json({ error: "Failed to get answer" });
   }
 };
 
@@ -42,7 +43,7 @@ export const addAnswerToQuestion = async (req: Request, res: Response) => {
     res.status(201).json(newAnswer);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to add answer to question" });
+    res.status(500).json({ error: "Failed to add answer to question" });
   }
 };
 
@@ -72,12 +73,12 @@ export const deleteAnswer = async (req: Request, res: Response) => {
     const deletedAnswer = await answerModel.deleteAnswer(answerId);
 
     if (!deletedAnswer) {
-      return res.status(404).json({ message: "Answer not found" });
+      return res.status(404).json({ error: "Answer not found" });
     }
 
     res.json({ message: "Answer deleted" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to delete answer" });
+    res.status(500).json({ error: "Failed to delete answer" });
   }
 };

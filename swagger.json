@@ -1023,6 +1023,108 @@
                          }
                     }
                },
+               "put":{
+                    "summary": " update question by question id",
+                    "description": "update question by question id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "quizId",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "questionId",
+                              "in": "path",
+                              "required": true,
+                              "description": "question id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "requestBody":{
+                         "required": true,
+                         "content": {
+                              "application/json":{
+                                   "schema":{
+                                        "type": "object",
+                                        "properties": {
+                                             "question": {
+                                                  "type": "string"
+                                             },
+                                             "answers": {
+                                                  "type": "array",
+                                                  "items": {
+                                                       "type": "object",
+                                                       "properties": {
+                                                            "answer": {
+                                                                 "type": "string"
+                                                            },
+                                                            "isCorrect": {
+                                                                 "type": "boolean"
+                                                            }
+                                                       }
+                                                  }
+                                             }
+                                        },
+                                        "required": ["question", "answers"]
+                                   }
+                              }
+                         }
+                    },
+                    "responses": {
+                         "200":{
+                              "description": "updated question successfully",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "question": {
+                                                       "type": "object",
+                                                       "properties": {
+                                                            "id": {
+                                                                 "type": "string"
+                                                            },
+                                                            "question": {
+                                                                 "type": "string"
+                                                            },
+                                                            "answers": {
+                                                                 "type": "array",
+                                                                 "items": {
+                                                                      "type": "object",
+                                                                      "properties": {
+                                                                           "id": {
+                                                                                "type": "string"
+                                                                           },
+                                                                           "answer": {
+                                                                                "type": "string"
+                                                                           },
+                                                                           "isCorrect": {
+                                                                                "type": "boolean"
+                                                                           }
+                                                                      }
+                                                                 }
+                                                            }
+                                                       }
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+               ,
                "delete":{
                     "summary": "delete question by question id",
                     "description": "delete question by question id",
@@ -1115,6 +1217,554 @@
                     }
                }
           
+          },
+          "/{quizId}/questions/{questionId}/answers":{
+               "get":{
+                    "summary": "get all answers of a question",
+                    "description": "get all answers of a question by question id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "quizId",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "questionId",
+                              "in": "path",
+                              "required": true,
+                              "description": "question id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "responses": {
+                         "200":{
+                              "description": "successful operation getting all answers of a question by question id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "array",
+                                             "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                       "id": {
+                                                            "type": "string"
+                                                       },
+                                                       "answer": {
+                                                            "type": "string"
+                                                       },
+                                                       "isCorrect": {
+                                                            "type": "boolean"
+                                                       }
+                                                  }
+                                             }
+                                        },
+                                        "example":[
+                                             {
+                                                  "id": "b31eeb21-eca0-4664-8611-423350cf9948",
+                                                  "answer": "2",
+                                                  "isCorrect": true
+                                             },
+                                             {
+                                                  "id": "63a73c15-5f04-4257-bef1-693659a727e5",
+                                                  "answer": "3",
+                                                  "isCorrect": false
+                                             }
+                                        ]
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to get all answers of a question by question id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "404":{
+                              "description": "question not found",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               },
+               "post":{
+                    "summary": " create answer",
+                    "description": "create answer and append to question answers",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "quizId",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "questionId",
+                              "in": "path",
+                              "required": true,
+                              "description": "question id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "requestBody":{
+                         "required": true,
+                         "content": {
+                              "application/json":{
+                                   "schema":{
+                                        "type": "object",
+                                        "properties": {
+                                             "answer": {
+                                                  "type": "string"
+                                             },
+                                             "isCorrect": {
+                                                  "type": "boolean"
+                                             }
+                                        },
+                                        "required": ["answer", "isCorrect"]
+                                   }
+                              }
+                         }
+                    },
+                    "responses": {
+                         "201":{
+                              "description": "created answer successfully",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "answer": {
+                                                       "type": "object",
+                                                       "properties": {
+                                                            "id": {
+                                                                 "type": "string"
+                                                            },
+                                                            "answer": {
+                                                                 "type": "string"
+                                                            },
+                                                            "isCorrect": {
+                                                                 "type": "boolean"
+                                                            }
+                                                       }
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to create answer",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "400":{
+                              "description": "Invalid answer type or isCorrect type (bad request)",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                         ,
+                         "500":{
+                              "description": "failed to create answer due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+          "/{quizId}/questions/{questionId}/answers/{answerId}":{
+               "get":{
+                    "summary": "get answer by answer id",
+                    "description": "get answer by answer id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "quizId",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "questionId",
+                              "in": "path",
+                              "required": true,
+                              "description": "question id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "answerId",
+                              "in": "path",
+                              "required": true,
+                              "description": "answer id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "responses": {
+                         "200":{
+                              "description": "successful operation getting answer by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "id": {
+                                                       "type": "string"
+                                                  },
+                                                  "answer": {
+                                                       "type": "string"
+                                                  },
+                                                  "isCorrect": {
+                                                       "type": "boolean"
+                                                  }
+                                             }
+                                        },
+                                        "example":{
+                                             "id": "b31eeb21-eca0-4664-8611-423350cf9948",
+                                             "answer": "2",
+                                             "isCorrect": true
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to get answer by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "404":{
+                              "description": "answer not found",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               },
+               "put":{
+                    "summary": " update answer by answer id",
+                    "description": "update answer by answer id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "quizId",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "questionId",
+                              "in": "path",
+                              "required": true,
+                              "description": "question id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "answerId",
+                              "in": "path",
+                              "required": true,
+                              "description": "answer id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "requestBody":{
+                         "required": true,
+                         "content": {
+                              "application/json":{
+                                   "schema":{
+                                        "type": "object",
+                                        "properties": {
+                                             "answer": {
+                                                  "type": "string"
+                                             },
+                                             "isCorrect": {
+                                                  "type": "boolean"
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    },
+                    "responses": {
+                         "200":{
+                              "description": "successful operation updating answer by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "answer": {
+                                                       "type": "object",
+                                                       "properties": {
+                                                            "id": {
+                                                                 "type": "string"
+                                                            },
+                                                            "answer": {
+                                                                 "type": "string"
+                                                            },
+                                                            "isCorrect": {
+                                                                 "type": "boolean"
+                                                            }
+                                                       }
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to update answer by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "404":{
+                              "description": "answer not found",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "failed to update answer by id due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               },
+               "delete":{
+                    "summary": "delete answer by answer id",
+                    "description": "delete answer by answer id",
+                    "security": [
+                         {
+                              "bearerAuth": []
+                         }
+                    ],
+                    "parameters": [
+                         {
+                              "name": "quizId",
+                              "in": "path",
+                              "required": true,
+                              "description": "quiz id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "questionId",
+                              "in": "path",
+                              "required": true,
+                              "description": "question id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         },
+                         {
+                              "name": "answerId",
+                              "in": "path",
+                              "required": true,
+                              "description": "answer id",
+                              "schema": {
+                                   "type": "string"
+                              }
+                         }
+                    ],
+                    "responses": {
+                         "200":{
+                              "description": "successful operation deleting answer by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "message": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "401":{
+                              "description": "not authorized to delete answer by id",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "404":{
+                              "description": "answer not found",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         },
+                         "500":{
+                              "description": "failed to delete answer by id due to internal server error",
+                              "content": {
+                                   "application/json": {
+                                        "schema": {
+                                             "type": "object",
+                                             "properties": {
+                                                  "error": {
+                                                       "type": "string"
+                                                  }
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
           }
 
      }

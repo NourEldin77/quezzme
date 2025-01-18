@@ -89,6 +89,7 @@ describe("Quiz Routes", () => {
       .get(`/quizzes/${quizId}`)
       .set("Authorization", `Bearer ${token}`);
 
+    expect(response.status).toBe(200);
     expect(getResponse.status).toBe(404);
   });
   /**
@@ -97,7 +98,10 @@ describe("Quiz Routes", () => {
 
   afterAll(async () => {
     try {
-      if (quizId) {
+      const quizExists = await prisma.quiz.findUnique({
+        where: { id: quizId },
+      });
+      if (quizExists) {
         await prisma.quiz.delete({ where: { id: quizId } });
       }
       await prisma.user.delete({ where: { email: "testQuiz@test.com" } });

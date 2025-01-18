@@ -7,7 +7,7 @@
      },
      "servers": [
           {
-               "url": "",
+               "url": "https://quezzme-de245678ce52.herokuapp.com",
                "description": "heroku server"
           }
           ,{

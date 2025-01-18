@@ -2,9 +2,12 @@
     "compilerOptions": {
       "sourceMap": true,
       "outDir": "dist",
+      "rootDir": "./src",
       "lib": ["esnext"],
+      "strict": false,
       "esModuleInterop": true,
+      "declaration": true,
       "resolveJsonModule": true
-
-    }
+    },
+    "include": ["src/**/*.ts"]
   }

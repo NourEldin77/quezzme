@@ -2,12 +2,12 @@
     "compilerOptions": {
       "sourceMap": true,
       "outDir": "dist",
-      "rootDir": "./src",
+      "rootDir": "./",
       "lib": ["esnext"],
       "strict": false,
       "esModuleInterop": true,
       "declaration": true,
       "resolveJsonModule": true
     },
-    "include": ["src/**/*.ts"]
+    "include": ["src/**/*.ts", "swagger.json"],
   }

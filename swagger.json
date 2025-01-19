@@ -664,25 +664,11 @@
                                                        "id": {
                                                             "type": "string"
                                                        },
-                                                       "question": {
+                                                       "text": {
                                                             "type": "string"
                                                        },
-                                                       "answers": {
-                                                            "type": "array",
-                                                            "items": {
-                                                                 "type": "object",
-                                                                 "properties": {
-                                                                      "id": {
-                                                                           "type": "string"
-                                                                      },
-                                                                      "answer": {
-                                                                           "type": "string"
-                                                                      },
-                                                                      "isCorrect": {
-                                                                           "type": "boolean"
-                                                                      }
-                                                                 }
-                                                            }
+                                                       "questionType":{
+                                                            "type": "string"
                                                        }
                                                   }
                                              }

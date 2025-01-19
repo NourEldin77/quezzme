@@ -631,7 +631,7 @@
                     }
                }
           },
-          "/{quizId}/questions":{
+          "/quizzes/{quizId}/questions":{
                "get":{
                     "summary": "get all questions of a quiz",
                     "description": "get all questions of a quiz by quiz id",
@@ -910,7 +910,7 @@
                     }
                }
           },
-          "/{quizId}/questions/{questionId}":{
+          "/quizzes/{quizId}/questions/{questionId}":{
                "get":{
                     "summary": "get question by question id",
                     "description": "get question by question id",
@@ -1218,7 +1218,7 @@
                }
           
           },
-          "/{quizId}/questions/{questionId}/answers":{
+          "/quizzes/{quizId}/questions/{questionId}/answers":{
                "get":{
                     "summary": "get all answers of a question",
                     "description": "get all answers of a question by question id",
@@ -1439,7 +1439,7 @@
                     }
                }
           },
-          "/{quizId}/questions/{questionId}/answers/{answerId}":{
+          "/quizzes/{quizId}/questions/{questionId}/answers/{answerId}":{
                "get":{
                     "summary": "get answer by answer id",
                     "description": "get answer by answer id",

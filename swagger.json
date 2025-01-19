@@ -791,8 +791,15 @@
                                              }
                                         },
                                         "required": ["text", "questionType"]
+
+                                   },
+                                   "example":{
+                                        "text": "what is 1+1",
+                                        "questionType": "MCQ"
                                    }
+
                               }
+                         }
                          }
                     },
                     "responses": {
@@ -803,33 +810,17 @@
                                         "schema": {
                                              "type": "object",
                                              "properties": {
-                                                  "question": {
-                                                       "type": "object",
-                                                       "properties": {
-                                                            "id": {
-                                                                 "type": "string"
-                                                            },
-                                                            "question": {
-                                                                 "type": "string"
-                                                            },
-                                                            "answers": {
-                                                                 "type": "array",
-                                                                 "items": {
-                                                                      "type": "object",
-                                                                      "properties": {
-                                                                           "id": {
-                                                                                "type": "string"
-                                                                           },
-                                                                           "answer": {
-                                                                                "type": "string"
-                                                                           },
-                                                                           "isCorrect": {
-                                                                                "type": "boolean"
-                                                                           }
-                                                                      }
-                                                                 }
-                                                            }
-                                                       }
+                                                  "id": {
+                                                       "type": "string"
+                                                  },
+                                                  "text": {
+                                                       "type": "string"
+                                                  },
+                                                  "quizId": {
+                                                       "type": "string"
+                                                  },
+                                                  "questionType": {
+                                                       "type": "string"
                                                   }
                                              }
                                         }

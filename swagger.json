@@ -7,7 +7,7 @@
      },
      "servers": [
           {
-               "url": "",
+               "url": "https://quezzme-de245678ce52.herokuapp.com",
                "description": "heroku server"
           }
           ,{
@@ -795,10 +795,11 @@
                                    "example":{
                                         "text": "what is 1+1",
                                         "questionType": "MCQ"
+                                   }
                               }
                          }
-                         }
-                    },
+                    }
+                    ,
                     "responses": {
                          "201":{
                               "description": "created question successfully",

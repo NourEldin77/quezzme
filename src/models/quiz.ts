@@ -1,7 +1,9 @@
 import prisma from "../db";
 
-export const getAllQuizzes = async () => {
-  return await prisma.quiz.findMany();
+export const getAllQuizzes = async (userId: string) => {
+  return await prisma.quiz.findMany({
+    where: { userId },
+  });
 };
 
 export const getQuizById = async (id: string) => {

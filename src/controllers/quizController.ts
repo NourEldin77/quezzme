@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
   try {
-    const quizzes = await quizModel.getAllQuizzes();
+    const quizzes = await quizModel.getAllQuizzes(req.user.userId);
     res.json(quizzes);
   } catch (error) {
     console.error(error);

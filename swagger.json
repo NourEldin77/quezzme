@@ -1022,25 +1022,14 @@
                                    "schema":{
                                         "type": "object",
                                         "properties": {
-                                             "question": {
+                                             "text": {
                                                   "type": "string"
                                              },
-                                             "answers": {
-                                                  "type": "array",
-                                                  "items": {
-                                                       "type": "object",
-                                                       "properties": {
-                                                            "answer": {
-                                                                 "type": "string"
-                                                            },
-                                                            "isCorrect": {
-                                                                 "type": "boolean"
-                                                            }
-                                                       }
-                                                  }
+                                             "questionType": {
+                                                  "type": "string"
                                              }
                                         },
-                                        "required": ["question", "answers"]
+                                        "required": ["text", "questionType"]
                                    }
                               }
                          }
@@ -1236,12 +1225,12 @@
                                         "example":[
                                              {
                                                   "id": "b31eeb21-eca0-4664-8611-423350cf9948",
-                                                  "answer": "2",
+                                                  "text": "2",
                                                   "isCorrect": true
                                              },
                                              {
                                                   "id": "63a73c15-5f04-4257-bef1-693659a727e5",
-                                                  "answer": "3",
+                                                  "text": "3",
                                                   "isCorrect": false
                                              }
                                         ]
@@ -1315,14 +1304,14 @@
                                    "schema":{
                                         "type": "object",
                                         "properties": {
-                                             "answer": {
+                                             "text": {
                                                   "type": "string"
                                              },
                                              "isCorrect": {
                                                   "type": "boolean"
                                              }
                                         },
-                                        "required": ["answer", "isCorrect"]
+                                        "required": ["text", "isCorrect"]
                                    }
                               }
                          }
@@ -1341,7 +1330,7 @@
                                                             "id": {
                                                                  "type": "string"
                                                             },
-                                                            "answer": {
+                                                            "text": {
                                                                  "type": "string"
                                                             },
                                                             "isCorrect": {
@@ -1452,7 +1441,7 @@
                                                   "id": {
                                                        "type": "string"
                                                   },
-                                                  "answer": {
+                                                  "text": {
                                                        "type": "string"
                                                   },
                                                   "isCorrect": {
@@ -1462,7 +1451,7 @@
                                         },
                                         "example":{
                                              "id": "b31eeb21-eca0-4664-8611-423350cf9948",
-                                             "answer": "2",
+                                             "text": "2",
                                              "isCorrect": true
                                         }
                                    }
@@ -1544,7 +1533,7 @@
                                    "schema":{
                                         "type": "object",
                                         "properties": {
-                                             "answer": {
+                                             "text": {
                                                   "type": "string"
                                              },
                                              "isCorrect": {
@@ -1563,20 +1552,15 @@
                                         "schema": {
                                              "type": "object",
                                              "properties": {
-                                                  "answer": {
-                                                       "type": "object",
-                                                       "properties": {
                                                             "id": {
                                                                  "type": "string"
                                                             },
-                                                            "answer": {
+                                                            "text": {
                                                                  "type": "string"
                                                             },
                                                             "isCorrect": {
                                                                  "type": "boolean"
                                                             }
-                                                       }
-                                                  }
                                              }
                                         }
                                    }

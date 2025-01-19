@@ -7,6 +7,8 @@ import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import quizRoutes from "./routes/quizRoutes";
 import { errorHandler } from "./utils/errorHandler";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../swagger.json";
 
 const app = express();
 
@@ -22,6 +24,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/users", protect, userRoutes);
 app.use("/quizzes", protect, quizRoutes);
 app.use("/users", protect, userRoutes);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/auth", authRoutes);
 app.use(errorHandler);
 

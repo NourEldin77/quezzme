@@ -98,7 +98,7 @@ To use the Quezzme API After installation locally or by using on Heroku server
     "username": "your_username",
     "email": "your_email",
     "password": "your_password",
-    "confirmPassword": "your_password"
+    "passwordConfirmation": "your_password"
   }
   ```
 
@@ -144,7 +144,7 @@ To use the Quezzme API After installation locally or by using on Heroku server
 
   ```json
   {
-    "questionText": "Question Text",
+    "text": "Question Text",
     "questionType": "MCQ"
   }
   ```
@@ -163,7 +163,7 @@ To use the Quezzme API After installation locally or by using on Heroku server
 
   ```json
   {
-    "questionText": "Updated Question Text",
+    "text": "Updated Question Text",
     "questionType": "MCQ"
   }
   ```
@@ -178,7 +178,7 @@ To use the Quezzme API After installation locally or by using on Heroku server
 
   ```json
   {
-    "answerText": "Answer Text",
+    "text": "Answer Text",
     "isCorrect": true
   }
   ```
@@ -197,7 +197,7 @@ To use the Quezzme API After installation locally or by using on Heroku server
 
   ```json
   {
-    "answerText": "Updated Answer Text",
+    "text": "Updated Answer Text",
     "isCorrect": false
   }
   ```

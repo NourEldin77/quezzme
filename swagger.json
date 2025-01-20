@@ -201,7 +201,7 @@
                     }
                }
           },
-          "/me":{
+          "/users/me":{
                "summary": "get username",
                "description": "get username of the user",
                "get":{
